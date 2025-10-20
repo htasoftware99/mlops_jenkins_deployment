@@ -1,5 +1,5 @@
-# Use a lightweight Python image
-FROM python:slim
+# Use a stable Debian-based Python image (Bookworm)
+FROM python:3.11-slim-bookworm
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -9,6 +9,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 WORKDIR /app
 
 # Install system dependencies
+# Clean lists first, then update and install
 RUN rm -rf /var/lib/apt/lists/* \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
