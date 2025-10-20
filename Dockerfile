@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     make \
     python3-dev \
     libgomp1 \
+    cmake \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
