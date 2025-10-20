@@ -1,0 +1,13 @@
+pandas
+numpy
+setuptools
+google-cloud-storage
+scikit-learn
+pyyaml
+matplotlib
+seaborn
+statsmodels
+imbalanced-learn
+xgboost
+lightgbm
+mlflow
