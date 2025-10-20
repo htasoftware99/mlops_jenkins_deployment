@@ -8,9 +8,21 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 # Set the working directory
 WORKDIR /app
 
-# Install system dependencies required by LightGBM
+# Install system dependencies required for building ML packages
+# build-essential, gcc, g++, make: C/C++ compiler toolchain for packages like statsmodels
+# python3-dev: Python header files needed for compiling C extensions
+# cmake: Build tool required by pyarrow
+# libarrow-dev: C++ source libraries required by pyarrow
+# libgomp1: Dependency for libraries like LightGBM/XGBoost
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    gcc \
+    g++ \
+    make \
+    python3-dev \
     libgomp1 \
+    cmake \
+    libarrow-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
