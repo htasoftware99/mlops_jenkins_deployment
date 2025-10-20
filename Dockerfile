@@ -9,8 +9,20 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 WORKDIR /app
 
 # Install system dependencies
-# Clean lists first, then update and install
-RUN rm -rf /var/lib/apt/lists/* \
+# - Add prerequisites for adding new APT repositories
+# - Add Apache Arrow GPG key and APT repository for Debian Bookworm
+# - Install build tools (gcc, g++, make, cmake, python3-dev)
+# - Install libarrow-dev from the official Arrow repository
+# - Install libgomp1
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release \
+    && curl -s https://apache.jfrog.io/artifactory/arrow/$(lsb_release --id --short | tr '[:upper:]' '[:lower:]')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb -o /tmp/apache-arrow-apt-source-latest.deb \
+    && apt-get install -y /tmp/apache-arrow-apt-source-latest.deb \
+    && rm /tmp/apache-arrow-apt-source-latest.deb \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         build-essential \
